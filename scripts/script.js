@@ -18,7 +18,7 @@ document.addEventListener('submit', async function(e) {
         const submitBtn = form.querySelector('.btn-submit');
         const endpoint = form.getAttribute('action') || '';
 
-        if (!endpoint || endpoint.includes('xojkbvke')) {
+        if (!endpoint || endpoint.includes('REPLACE_WITH_YOUR_FORM_ID')) {
             if (status) {
                 status.textContent = 'Configurez d abord votre endpoint Formspree dans le formulaire contact.';
                 status.classList.remove('success');
