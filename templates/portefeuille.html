@@ -269,6 +269,86 @@
             </div>
         </div>
 
+        <div class="project-card">
+            <div class="card-icon-wrapper">
+                <i class="fas fa-user-secret"></i>
+            </div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>Test d'Intrusion Éthique</h3>
+                    <p class="tech-stack">nmap | Metasploit | Kali Linux | Metasploitable</p>
+                </div>
+                <p class="project-description">
+                    Simulation d'une attaque complète sur une VM vulnérable : reconnaissance, scan, exploitation et post-exploitation via Metasploit.
+                </p>
+                <div class="project-links-container">
+                    <button class="btn-details" data-modal="modal-intrusion">
+                        <i class="fas fa-info-circle"></i> Voir les détails
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="card-icon-wrapper">
+                <i class="fas fa-key"></i>
+            </div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>Cryptographie Asymétrique</h3>
+                    <p class="tech-stack">OpenSSL | RSA | SHA-256 | Signature Numérique</p>
+                </div>
+                <p class="project-description">
+                    Chiffrement/déchiffrement RSA, génération de paires de clés et signatures électroniques entre utilisateurs Alice et Bob.
+                </p>
+                <div class="project-links-container">
+                    <button class="btn-details" data-modal="modal-crypto-asym">
+                        <i class="fas fa-info-circle"></i> Voir les détails
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="card-icon-wrapper">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>Cryptographie Symétrique & X509</h3>
+                    <p class="tech-stack">OpenSSL | AES-128-CBC | Certificats X509 | PBKDF2</p>
+                </div>
+                <p class="project-description">
+                    Échange sécurisé de données via clé symétrique AES partagée et manipulation de certificats X509 avec création d'une AC.
+                </p>
+                <div class="project-links-container">
+                    <button class="btn-details" data-modal="modal-crypto-sym">
+                        <i class="fas fa-info-circle"></i> Voir les détails
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="card-icon-wrapper">
+                <i class="fas fa-sitemap"></i>
+            </div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>Infrastructure Bastion SSH Multi-Services</h3>
+                    <p class="tech-stack">SSH | nftables | BIND9 | HAProxy | vsftpd | WordPress | Cowrie</p>
+                </div>
+                <p class="project-description">
+                    Déploiement d'une infrastructure sécurisée complète : bastion SSH, DHCP, DNS, FTP, load balancer et WordPress en haute disponibilité.
+                </p>
+                <div class="project-links-container">
+                    <button class="btn-details" data-modal="modal-bastion">
+                        <i class="fas fa-info-circle"></i> Voir les détails
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -556,6 +636,109 @@
             <ul class="modal-list">
                 <li>Configuration isc-dhcp-server avec plages IP dynamiques et options réseau.</li>
                 <li>Configuration client DHCP et tests connectivité.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-intrusion" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 class="modal-title">Test d'Intrusion & Hacking Éthique</h2>
+        <div class="modal-body">
+            <h4 class="cyber-subtitle">Reconnaissance & Scanning</h4>
+            <ul class="modal-list">
+                <li><strong>Détermination du préfixe réseau :</strong> Identification du réseau cible avant tout scan (étape de reconnaissance).</li>
+                <li><strong>nmap :</strong> Scan du réseau pour localiser la VM Metasploitable, identification des services et versions en cours d'exécution.</li>
+                <li><strong>Types de scans :</strong> Comparaison scan TCP SYN, scan complet et mode furtif pour réduire la détection.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Exploitation des Vulnérabilités</h4>
+            <ul class="modal-list">
+                <li><strong>Vulnérabilité FTP :</strong> Recherche et exploitation manuelle d'une faille du service FTP pour obtenir un accès root.</li>
+                <li><strong>Analyse de vulnérabilités :</strong> Utilisation de Nessus / OpenVAS / nmap pour identifier plusieurs vecteurs d'attaque.</li>
+                <li><strong>Metasploit Framework :</strong> Automatisation de l'exploitation (Bash, SSL) et post-exploitation sur la VM cible.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Synthèse White Hacking</h4>
+            <ul class="modal-list">
+                <li>Formalisation des étapes : Reconnaissance → Scan → Exploitation → Post-exploitation → Rapport.</li>
+                <li>Sensibilisation aux enjeux légaux (article 323-1 du Code pénal) et éthiques du hacking.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-crypto-asym" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 class="modal-title">Cryptographie Asymétrique (OpenSSL)</h2>
+        <div class="modal-body">
+            <h4 class="cyber-subtitle">Gestion des Clés RSA</h4>
+            <ul class="modal-list">
+                <li><strong>Génération de paires de clés :</strong> Création des clés privée/publique pour Alice et Bob via <code>openssl genrsa</code>.</li>
+                <li><strong>Extraction de clé publique :</strong> Isolation de la clé publique dans un fichier dédié avec <code>openssl rsa -pubout</code>.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Chiffrement & Déchiffrement</h4>
+            <ul class="modal-list">
+                <li><strong>Chiffrement RSA :</strong> Chiffrement d'un document avec la clé publique de Bob (<code>openssl rsautl -encrypt</code>).</li>
+                <li><strong>Déchiffrement RSA :</strong> Déchiffrement avec la clé privée de Bob et vérification de l'intégrité du contenu.</li>
+                <li><strong>Limites du chiffrement asymétrique :</strong> Démonstration de l'impossibilité de chiffrer de grands fichiers (coût calcul).</li>
+            </ul>
+            <h4 class="cyber-subtitle">Signature Numérique & Non-Répudiation</h4>
+            <ul class="modal-list">
+                <li>Génération d'un hash SHA-256 sur un document, puis signature avec la clé privée d'Alice.</li>
+                <li>Vérification de la signature côté Bob via <code>openssl rsautl -verify</code> et comparaison des hachages (<code>diff</code>).</li>
+                <li>Garantie d'authenticité, non-répudiation et intégrité des données échangées.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-crypto-sym" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 class="modal-title">Cryptographie Symétrique & Certificats X509</h2>
+        <div class="modal-body">
+            <h4 class="cyber-subtitle">Authentification & Signatures Mutuelles</h4>
+            <ul class="modal-list">
+                <li>Génération de signatures numériques pour Alice et Bob en une seule commande (<code>openssl dgst -sha256 -sign</code>).</li>
+                <li>Vérification croisée des signatures pour garantir authenticité et non-répudiation des deux parties.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Échange Sécurisé de Clé Symétrique</h4>
+            <ul class="modal-list">
+                <li><strong>Clé SymKey :</strong> Génération d'une clé symétrique aléatoire et chiffrement RSA avec la clé publique d'Alice.</li>
+                <li><strong>Chiffrement AES-128-CBC :</strong> Chiffrement/déchiffrement des données volumineuses avec PBKDF2 et sel aléatoire.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Certificats X509</h4>
+            <ul class="modal-list">
+                <li>Récupération et analyse du certificat SSL de www.lcl.fr : émetteur, date de validité, numéro de série, clé publique.</li>
+                <li><strong>AC auto-signée :</strong> Génération d'une paire de clés 4096 bits et d'un certificat CACertificate.crt.</li>
+                <li><strong>Certificat serveur :</strong> Création de ServerRequest.csr signé par l'AC et vérification avec <code>openssl verify</code>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-bastion" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 class="modal-title">Infrastructure Bastion SSH Multi-Services</h2>
+        <div class="modal-body">
+            <h4 class="cyber-subtitle">Architecture Sécurisée</h4>
+            <ul class="modal-list">
+                <li><strong>Bastion SSH :</strong> Double interface WAN/LAN, authentification par clé uniquement, ProxyJump, nftables (DROP par défaut), NAT et Fail2ban.</li>
+                <li><strong>Segmentation réseau :</strong> Réseau interne isolé (192.168.10.0/24) non routable depuis l'extérieur, avec 7 VMs Debian 12.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Services Réseau</h4>
+            <ul class="modal-list">
+                <li><strong>DHCP (isc-dhcp-server) :</strong> Plage dynamique, réservations MAC, passerelle et DNS injectés aux clients.</li>
+                <li><strong>DNS (BIND9) :</strong> Zones directe/inverse pour techsecure.local, CNAME load balancer, forwarding vers 8.8.8.8.</li>
+                <li><strong>FTP sécurisé (vsftpd/FTPS) :</strong> TLS/SSL, utilisateurs virtuels PAM, chroot, quotas disque et journalisation.</li>
+            </ul>
+            <h4 class="cyber-subtitle">Haute Disponibilité & Web</h4>
+            <ul class="modal-list">
+                <li><strong>Stack LAMP x2 + WordPress :</strong> Deux serveurs web synchronisés (rsync/NFS), base de données partagée.</li>
+                <li><strong>Load Balancer (HAProxy) :</strong> Round-Robin avec sticky sessions, health checks HTTP, terminaison SSL, failover automatique.</li>
+                <li><strong>Honeypot Cowrie (bonus) :</strong> Leurre SSH/Telnet pour collecter et analyser les tentatives d'intrusion.</li>
             </ul>
         </div>
     </div>
