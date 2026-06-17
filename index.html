@@ -12,6 +12,12 @@
 </head>
 <body>
 
+    <!-- ===== CANVAS RÉSEAU — ARRIÈRE-PLAN FIXE =====
+         position:fixed + z-index:-1 garantis en INLINE :
+         jamais dans le flux du document, toujours derrière tout le contenu. -->
+    <canvas id="networkCanvas"
+        style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.35;display:block;"></canvas>
+
     <header>
         <a href="#maison" class="brand-name">Dilane <strong>ESSOH</strong></a>
         <nav>
@@ -26,7 +32,7 @@
 
     <div class="contact-fixe">
         <a href="mailto:akpasamessoh@gmail.com">Email: akpasamessoh@gmail.com</a>
-        <a href="tel:+33 760360779">Tel. : +33 7 60 36 07 79</a>
+        <a href="tel:+33760360779">Tél. : +33 7 60 36 07 79</a>
     </div>
 
     <aside class="social-fixe">
@@ -48,17 +54,14 @@
             <div class="hero-content">
                 <p class="greeting">Bonjour, je suis</p>
                 <h1 class="hero-name">Dilane <span class="accent">ESSOH</span></h1>
-                <h2 class="hero-title">Bachelor <span class="accent">Cybersécurité</span> & Réseaux</h2>
+                <h2 class="hero-title">Bachelor <span class="accent">Cybersécurité</span> &amp; Réseaux</h2>
                 <p class="hero-desc">Étudiant en 2ème année de Bachelor Informatique · Réseaux &amp; Cybersécurité<br>Paris, France · Recherche d'alternance Septembre 2026</p>
                 <div class="about-preview">
-                    <p>Passionne par le developpement, la protection des systemes et l'architecture reseau.</p>
+                    <p>Passionné par le développement, la protection des systèmes et l'architecture réseau.</p>
                 </div>
             </div>
         </div>
     </main>
-
-    <!-- Canvas réseau neuronal animé -->
-    <canvas id="networkCanvas"></canvas>
 
     <!-- Curseur personnalisé -->
     <div class="cursor"></div>
@@ -67,11 +70,11 @@
     <script src="./scripts/script.js"></script>
     <script src="./scripts/portefeuille.js"></script>
 
-    <!-- Canvas réseau : animation nœuds & connexions neon vert -->
+    <!-- Animation canvas réseau neuronal -->
     <script>
     (function () {
         const canvas = document.getElementById('networkCanvas');
-        const ctx = canvas.getContext('2d');
+        const ctx    = canvas.getContext('2d');
         const PRIMARY = '57, 255, 138';
         let nodes = [];
 
@@ -99,17 +102,17 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Connexions
+            // Connexions entre noeuds proches
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
+                    const dx   = nodes[i].x - nodes[j].x;
+                    const dy   = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 160) {
                         const alpha = (1 - dist / 160) * 0.45;
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(${PRIMARY}, ${alpha})`;
-                        ctx.lineWidth = 0.6;
+                        ctx.lineWidth   = 0.6;
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
                         ctx.stroke();
@@ -117,20 +120,20 @@
                 }
             }
 
-            // Nœuds
+            // Noeuds
             nodes.forEach(n => {
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${PRIMARY}, 0.7)`;
+                ctx.fillStyle   = `rgba(${PRIMARY}, 0.7)`;
                 ctx.shadowColor = `rgba(${PRIMARY}, 0.9)`;
-                ctx.shadowBlur = 6;
+                ctx.shadowBlur  = 6;
                 ctx.fill();
-                ctx.shadowBlur = 0;
+                ctx.shadowBlur  = 0;
 
                 n.x += n.vx;
                 n.y += n.vy;
                 if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
-                if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+                if (n.y < 0 || n.y > canvas.height)  n.vy *= -1;
             });
 
             requestAnimationFrame(draw);
