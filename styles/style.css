@@ -648,6 +648,30 @@ h1 {
     font-style: italic;
 }
 
+.exp-details {
+    list-style: none;
+    padding: 0.8rem 0 0 0;
+    margin: 0;
+    border-top: 1px solid rgba(46, 204, 113, 0.1);
+}
+
+.exp-details li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.exp-details li::before {
+    content: '▹';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
 /* --- Styles pour la section Intérêts --- */
 .section-interets {
     margin-top: 4rem;
