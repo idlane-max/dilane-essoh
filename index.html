@@ -9,22 +9,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/cyber-enhancements.css">
 </head>
 <body>
 
-    <!-- ===== CANVAS RÉSEAU — ARRIÈRE-PLAN FIXE =====
-         position:fixed + z-index:-1 garantis en INLINE :
-         jamais dans le flux du document, toujours derrière tout le contenu. -->
     <canvas id="networkCanvas"
-        style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.35;display:block;"></canvas>
+        style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.35;display:block;"
+        aria-hidden="true"></canvas>
 
     <header>
         <a href="#maison" class="brand-name">Dilane <strong>ESSOH</strong></a>
-        <nav>
+        <nav aria-label="Navigation principale">
             <ul>
                 <li><a href="#maison" class="active">Home</a></li>
                 <li><a href="#cv">CV</a></li>
                 <li><a href="#portefeuille" data-link>Portfolio</a></li>
+                <li><a href="#blog">Veille</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -39,8 +39,8 @@
         <div class="social-inner">
             <span class="vertical-label">Suis-moi</span>
             <div class="vertical-line"></div>
-            <a href="https://github.com/idlane-max" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/dilane-essoh" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/idlane-max" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Dilane ESSOH"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/dilane-essoh" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Dilane ESSOH"><i class="fab fa-linkedin"></i></a>
         </div>
     </aside>
 
@@ -51,35 +51,59 @@
                     <img src="./assets/img-cv.png" alt="Dilane ESSOH">
                 </div>
             </div>
+
             <div class="hero-content">
                 <p class="greeting">Bonjour, je suis</p>
                 <h1 class="hero-name">Dilane <span class="accent">ESSOH</span></h1>
                 <h2 class="hero-title">Bachelor <span class="accent">Cybersécurité</span> &amp; Réseaux</h2>
-                <p class="hero-desc">Étudiant en 2ème année de Bachelor Informatique · Réseaux &amp; Cybersécurité<br>Paris, France · Recherche d'alternance Septembre 2026</p>
-                <div class="about-preview">
-                    <p>Passionné par le développement, la protection des systèmes et l'architecture réseau.</p>
+                <p class="hero-desc">
+                    Étudiant en 2ème année de Bachelor Informatique · Réseaux &amp; Cybersécurité<br>
+                    Paris, France · Recherche d'alternance Septembre 2026
+                </p>
+
+                <div class="home-actions">
+                    <a href="#cv" class="btn-primary">Voir mon CV</a>
+                    <a href="#portefeuille" class="btn-secondary">Voir mes projets</a>
+                </div>
+
+                <div class="terminal-panel" aria-label="Terminal de présentation">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-body" aria-live="polite">
+                        <span class="prompt">$</span> whoami<br>
+                        dilane-essoh<br>
+                        <span class="prompt">$</span> cat focus.txt<br>
+                        [security, networking, linux, cloud, infra]<br>
+                        <span class="prompt">$</span> sudo nmap --target cyber<br>
+                        Scanning.. 0.0.0.0/24<br>
+                        [+] Infrastructure &amp; sécurité réseau<br>
+                        <span class="prompt">$</span> ls /projects<br>
+                        bastion-ssh | wireguard | packet-tracer | linux-hardening
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Curseur personnalisé -->
-    <div class="cursor"></div>
+    <div class="cursor" aria-hidden="true"></div>
 
     <script src="./scripts/router.js"></script>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/portefeuille.js"></script>
+    <script src="./scripts/cyber-enhancements.js"></script>
 
-    <!-- Animation canvas réseau neuronal -->
     <script>
     (function () {
         const canvas = document.getElementById('networkCanvas');
-        const ctx    = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
         const PRIMARY = '57, 255, 138';
         let nodes = [];
 
         function resize() {
-            canvas.width  = window.innerWidth;
+            canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
         resize();
@@ -89,11 +113,11 @@
             nodes = [];
             for (let i = 0; i < n; i++) {
                 nodes.push({
-                    x:  Math.random() * canvas.width,
-                    y:  Math.random() * canvas.height,
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
                     vx: (Math.random() - 0.5) * 0.35,
                     vy: (Math.random() - 0.5) * 0.35,
-                    r:  Math.random() * 1.5 + 0.8
+                    r: Math.random() * 1.5 + 0.8
                 });
             }
         }
@@ -102,17 +126,16 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Connexions entre noeuds proches
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
-                    const dx   = nodes[i].x - nodes[j].x;
-                    const dy   = nodes[i].y - nodes[j].y;
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 160) {
                         const alpha = (1 - dist / 160) * 0.45;
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(${PRIMARY}, ${alpha})`;
-                        ctx.lineWidth   = 0.6;
+                        ctx.lineWidth = 0.6;
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
                         ctx.stroke();
@@ -120,20 +143,19 @@
                 }
             }
 
-            // Noeuds
             nodes.forEach(n => {
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-                ctx.fillStyle   = `rgba(${PRIMARY}, 0.7)`;
+                ctx.fillStyle = `rgba(${PRIMARY}, 0.7)`;
                 ctx.shadowColor = `rgba(${PRIMARY}, 0.9)`;
-                ctx.shadowBlur  = 6;
+                ctx.shadowBlur = 6;
                 ctx.fill();
-                ctx.shadowBlur  = 0;
+                ctx.shadowBlur = 0;
 
                 n.x += n.vx;
                 n.y += n.vy;
-                if (n.x < 0 || n.x > canvas.width)  n.vx *= -1;
-                if (n.y < 0 || n.y > canvas.height)  n.vy *= -1;
+                if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+                if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
             });
 
             requestAnimationFrame(draw);
