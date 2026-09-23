@@ -14,8 +14,8 @@
 <body>
 
     <canvas id="networkCanvas"
-        style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.35;display:block;"
-        aria-hidden="true"></canvas>
+        aria-hidden="true"
+        style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.35;display:block;"></canvas>
 
     <header>
         <a href="#maison" class="brand-name">Dilane <strong>ESSOH</strong></a>
@@ -51,38 +51,22 @@
                     <img src="./assets/img-cv.png" alt="Dilane ESSOH">
                 </div>
             </div>
-
             <div class="hero-content">
                 <p class="greeting">Bonjour, je suis</p>
                 <h1 class="hero-name">Dilane <span class="accent">ESSOH</span></h1>
                 <h2 class="hero-title">Bachelor <span class="accent">Cybersécurité</span> &amp; Réseaux</h2>
-                <p class="hero-desc">
-                    Étudiant en 2ème année de Bachelor Informatique · Réseaux &amp; Cybersécurité<br>
-                    Paris, France · Recherche d'alternance Septembre 2026
-                </p>
-
+                <p class="hero-desc">Étudiant en 2ème année de Bachelor Informatique · Réseaux &amp; Cybersécurité<br>Paris, France · Recherche d'alternance Septembre 2026</p>
                 <div class="home-actions">
                     <a href="#cv" class="btn-primary">Voir mon CV</a>
                     <a href="#portefeuille" class="btn-secondary">Voir mes projets</a>
                 </div>
-
                 <div class="terminal-panel" aria-label="Terminal de présentation">
-                    <div class="terminal-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+                    <div class="terminal-header" aria-hidden="true">
+                        <span class="terminal-dot terminal-dot--red"></span>
+                        <span class="terminal-dot terminal-dot--yellow"></span>
+                        <span class="terminal-dot terminal-dot--green"></span>
                     </div>
-                    <div class="terminal-body" aria-live="polite">
-                        <span class="prompt">$</span> whoami<br>
-                        dilane-essoh<br>
-                        <span class="prompt">$</span> cat focus.txt<br>
-                        [security, networking, linux, cloud, infra]<br>
-                        <span class="prompt">$</span> sudo nmap --target cyber<br>
-                        Scanning.. 0.0.0.0/24<br>
-                        [+] Infrastructure &amp; sécurité réseau<br>
-                        <span class="prompt">$</span> ls /projects<br>
-                        bastion-ssh | wireguard | packet-tracer | linux-hardening
-                    </div>
+                    <div class="terminal-body" aria-live="polite"><span class="prompt">$</span> whoami</div>
                 </div>
             </div>
         </div>
@@ -125,16 +109,14 @@
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
                     const dx = nodes[i].x - nodes[j].x;
                     const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 160) {
-                        const alpha = (1 - dist / 160) * 0.45;
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(${PRIMARY}, ${alpha})`;
+                        ctx.strokeStyle = `rgba(${PRIMARY}, ${(1 - dist / 160) * 0.45})`;
                         ctx.lineWidth = 0.6;
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -142,7 +124,6 @@
                     }
                 }
             }
-
             nodes.forEach(n => {
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -151,13 +132,11 @@
                 ctx.shadowBlur = 6;
                 ctx.fill();
                 ctx.shadowBlur = 0;
-
                 n.x += n.vx;
                 n.y += n.vy;
                 if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
                 if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
             });
-
             requestAnimationFrame(draw);
         }
         draw();
