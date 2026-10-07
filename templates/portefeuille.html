@@ -5,9 +5,17 @@
             j'ai relevé et une opportunité d'apprendre.</p>
     </div>
 
+    <div class="project-filters" role="group" aria-label="Filtrer les projets">
+        <button class="project-filter active" type="button" data-filter="all" aria-pressed="true">Tous</button>
+        <button class="project-filter" type="button" data-filter="cybersecurity" aria-pressed="false">Cybersécurité</button>
+        <button class="project-filter" type="button" data-filter="systems-network" aria-pressed="false">Admin Système Réseau</button>
+        <button class="project-filter" type="button" data-filter="dev" aria-pressed="false">Dev</button>
+        <button class="project-filter" type="button" data-filter="other" aria-pressed="false">Autre</button>
+    </div>
+
     <div class="projects-grid">
 
-        <div class="project-card">
+        <div class="project-card" data-category="systems-network">
             <div class="card-icon-wrapper">
                 <i class="fab fa-windows"></i>
             </div>
@@ -28,7 +36,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-network-wired"></i>
             </div>
@@ -49,7 +57,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="dev">
             <div class="card-icon-wrapper">
                 <i class="fas fa-shopping-cart"></i>
             </div>
@@ -74,13 +82,13 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="dev">
             <div class="card-icon-wrapper">
                 <i class="fas fa-film"></i>
             </div>
             <div class="project-content">
                 <div class="project-header">
-                    <h3>Site Anime Interactif</h3>
+                    <h3>AniSearch — Site anime interactif</h3>
                     <p class="tech-stack">JavaScript | HTML | CSS | API</p>
                 </div>
                 <p class="project-description">
@@ -98,7 +106,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="dev">
             <div class="card-icon-wrapper">
                 <i class="fas fa-globe"></i>
             </div>
@@ -119,7 +127,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-shield-alt"></i>
             </div>
@@ -140,7 +148,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="dev">
             <div class="card-icon-wrapper">
                 <i class="fas fa-database"></i>
             </div>
@@ -163,7 +171,28 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="dev">
+            <div class="card-icon-wrapper">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>OhMyChat — Forum social en Go</h3>
+                    <p class="tech-stack">Go | MySQL | bcrypt</p>
+                </div>
+                <p class="project-description">
+                    Application de forum avec comptes utilisateurs, publications et interactions. Le backend Go
+                    structure la logique métier et s'appuie sur MySQL pour conserver les données.
+                </p>
+                <div class="project-links-container">
+                    <button class="btn-details" data-modal="modal-forum">
+                        <i class="fas fa-info-circle"></i> Voir les détails
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="dev">
             <div class="card-icon-wrapper">
                 <i class="fab fa-discord"></i>
             </div>
@@ -188,7 +217,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="systems-network">
             <div class="card-icon-wrapper">
                 <i class="fab fa-linux"></i>
             </div>
@@ -209,7 +238,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="systems-network">
             <div class="card-icon-wrapper">
                 <i class="fas fa-ethernet"></i>
             </div>
@@ -229,7 +258,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="systems-network">
             <div class="card-icon-wrapper">
                 <i class="fas fa-server"></i>
             </div>
@@ -249,7 +278,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="systems-network">
             <div class="card-icon-wrapper">
                 <i class="fas fa-network-wired"></i>
             </div>
@@ -269,7 +298,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-user-secret"></i>
             </div>
@@ -289,7 +318,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-key"></i>
             </div>
@@ -309,7 +338,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-lock"></i>
             </div>
@@ -329,7 +358,7 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="cybersecurity">
             <div class="card-icon-wrapper">
                 <i class="fas fa-sitemap"></i>
             </div>
@@ -354,7 +383,7 @@
 
 <div id="modal-cyber" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Administration Systèmes Windows Server</h2>
         <div class="modal-body">
             <h4 class="cyber-subtitle">Services d'annuaire & gouvernance</h4>
@@ -386,7 +415,7 @@
 
 <div id="modal-expert-cisco" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Architecture Réseau & Sécurité Avancée (Cisco)</h2>
         <div class="modal-body">
             <h4>Infrastructure & Segmentation</h4>
@@ -409,9 +438,10 @@
 
 <div id="modal-forum" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2 class="modal-title">Développement Backend & Système Social (Go)</h2>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
+        <h2 class="modal-title">OhMyChat — Backend de forum social en Go</h2>
         <div class="modal-body">
+            <p>Le projet organise les fonctionnalités d'un forum autour d'un backend Go, d'une base MySQL et de sessions utilisateur. Les publications, commentaires et réactions sont rattachés aux comptes afin de conserver des échanges cohérents.</p>
             <h4>Architecture & Logique Métier</h4>
             <ul class="modal-list">
                 <li>Backend structuré en Go avec gestion des routes et logique métier.</li>
@@ -434,7 +464,7 @@
 
 <div id="modal-discount" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Développement Web Backend & Architecture (PHP)</h2>
         <div class="modal-body">
             <h4>Architecture & Logique Métier</h4>
@@ -458,9 +488,10 @@
 
 <div id="modal-anime" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2 class="modal-title">Développement Frontend & Expérience Utilisateur</h2>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
+        <h2 class="modal-title">AniSearch — Site anime interactif</h2>
         <div class="modal-body">
+            <p>AniSearch est une interface web côté client qui s'appuie sur une API pour charger et présenter des informations sur les animés. Le JavaScript relie les réponses de l'API au DOM afin d'actualiser le contenu sans recharger toute la page.</p>
             <h4>Interface & UX</h4>
             <ul class="modal-list">
                 <li>Interface dynamique en JavaScript avec affichage interactif des contenus.</li>
@@ -481,7 +512,7 @@
 
 <div id="modal-rick" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Intégration API & Backend Dynamique</h2>
         <div class="modal-body">
             <h4>Consommation API</h4>
@@ -503,7 +534,7 @@
 
 <div id="modal-firewall" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Cybersécurité & Réseau Sécurisé</h2>
         <div class="modal-body">
             <h4>Firewall & VPN</h4>
@@ -522,7 +553,7 @@
 
 <div id="modal-sql" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Data Engineering & Modélisation (SQL)</h2>
         <div class="modal-body">
             <h4>Modélisation & Base de Données</h4>
@@ -545,7 +576,7 @@
 
 <div id="modal-discord" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Développement Bot Discord & Logique Algorithmique (Python)</h2>
         <div class="modal-body">
             <h4>Architecture & Logique Métier</h4>
@@ -569,7 +600,7 @@
 
 <div id="modal-linux" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Administration Linux & Infrastructure</h2>
         <div class="modal-body">
             <h4>Système & Utilisateurs</h4>
@@ -587,7 +618,7 @@
 
 <div id="modal-cisco" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Administration Réseau & Infrastructure Cisco</h2>
         <div class="modal-body">
             <h4>Architecture Réseau</h4>
@@ -611,7 +642,7 @@
 
 <div id="modal-dns" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Administration Système & Réseau</h2>
         <div class="modal-body">
             <h4>Serveur DNS & Web</h4>
@@ -629,7 +660,7 @@
 
 <div id="modal-dhcp" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Gestion Réseau & Automatisation</h2>
         <div class="modal-body">
             <h4>Configuration DHCP & Réseau</h4>
@@ -643,7 +674,7 @@
 
 <div id="modal-intrusion" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Test d'Intrusion & Hacking Éthique</h2>
         <div class="modal-body">
             <h4 class="cyber-subtitle">Reconnaissance & Scanning</h4>
@@ -669,7 +700,7 @@
 
 <div id="modal-crypto-asym" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Cryptographie Asymétrique (OpenSSL)</h2>
         <div class="modal-body">
             <h4 class="cyber-subtitle">Gestion des Clés RSA</h4>
@@ -695,7 +726,7 @@
 
 <div id="modal-crypto-sym" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Cryptographie Symétrique & Certificats X509</h2>
         <div class="modal-body">
             <h4 class="cyber-subtitle">Authentification & Signatures Mutuelles</h4>
@@ -720,7 +751,7 @@
 
 <div id="modal-bastion" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-btn">&times;</span>
+        <button class="close-btn" type="button" aria-label="Fermer la boîte de dialogue">&times;</button>
         <h2 class="modal-title">Infrastructure Bastion SSH Multi-Services</h2>
         <div class="modal-body">
             <h4 class="cyber-subtitle">Architecture Sécurisée</h4>
