@@ -1,7 +1,4 @@
 // scripts/portefeuille.js
-
-// Sécurité SPA : On vérifie que le script n'a pas déjà été initialisé 
-// pour éviter d'ajouter les événements en double quand on navigue entre les pages.
 if (!window.portefeuilleModalsInitialized) {
     window.portefeuilleModalsInitialized = true;
     const filterTimers = new WeakMap();
@@ -9,18 +6,19 @@ if (!window.portefeuilleModalsInitialized) {
     let activeModal = null;
     let lastFocusedElement = null;
     let previousBodyOverflow = '';
+    const t = value => window.siteI18n?.t(value) || value;
 
     function addProjectOverview(modal, projectCard) {
         if (!projectCard || modal.querySelector('.modal-overview')) return;
 
         const overview = document.createElement('section');
         overview.className = 'modal-overview';
-        overview.setAttribute('aria-label', 'Présentation du projet');
+        overview.setAttribute('aria-label', t('Présentation du projet'));
 
         const summary = document.createElement('div');
         summary.className = 'modal-overview-section modal-summary';
         const summaryTitle = document.createElement('h3');
-        summaryTitle.textContent = 'Présentation';
+        summaryTitle.textContent = t('Présentation');
         const summaryText = document.createElement('p');
         summaryText.textContent = projectCard.querySelector('.project-description')?.textContent.trim() || '';
         summary.append(summaryTitle, summaryText);
@@ -35,7 +33,7 @@ if (!window.portefeuilleModalsInitialized) {
             const technologySection = document.createElement('div');
             technologySection.className = 'modal-overview-section modal-technologies';
             const technologyTitle = document.createElement('h3');
-            technologyTitle.textContent = 'Technologies';
+            technologyTitle.textContent = t('Technologies');
             const technologyList = document.createElement('ul');
             technologyList.className = 'technology-tags';
 
@@ -54,7 +52,7 @@ if (!window.portefeuilleModalsInitialized) {
             const linksSection = document.createElement('div');
             linksSection.className = 'modal-overview-section modal-project-links';
             const linksTitle = document.createElement('h3');
-            linksTitle.textContent = 'Liens du projet';
+            linksTitle.textContent = t('Liens du projet');
             const linksList = document.createElement('div');
             linksList.className = 'project-links-container';
 
@@ -77,6 +75,7 @@ if (!window.portefeuilleModalsInitialized) {
         if (!modal) return;
 
         modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = previousBodyOverflow;
         if (lastFocusedElement?.isConnected) {
             lastFocusedElement.focus();
@@ -138,8 +137,6 @@ if (!window.portefeuilleModalsInitialized) {
             });
             return;
         }
-        
-        // 1. Clic sur le bouton "Voir les détails"
         const btn = e.target.closest('.btn-details');
         if (btn) {
             const targetModalId = btn.getAttribute('data-modal');
@@ -158,13 +155,13 @@ if (!window.portefeuilleModalsInitialized) {
                 lastFocusedElement = btn;
                 activeModal = modal;
                 modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden'; // Bloque le scroll
                 modal.querySelector('.close-btn')?.focus();
             }
             return;
         }
 
-        // 2. Clic sur la croix (X) pour fermer
         const closeBtn = e.target.closest('.close-btn');
         if (closeBtn) {
             const modal = closeBtn.closest('.modal-overlay');
@@ -172,7 +169,6 @@ if (!window.portefeuilleModalsInitialized) {
             return;
         }
 
-        // 3. Clic à l'extérieur de la modale (sur le fond sombre)
         if (e.target.classList.contains('modal-overlay')) {
             closeModal(e.target);
         }
@@ -204,4 +200,5 @@ if (!window.portefeuilleModalsInitialized) {
             }
         }
     });
+
 }

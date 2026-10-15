@@ -1,17 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const t = value => window.siteI18n?.t(value) || value;
     const cursor = document.querySelector('.cursor');
-    
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+    }
+
+    const terminalBody = document.querySelector('.terminal-body');
+    if (terminalBody) {
+        const lines = [
+            '$ whoami',
+            'dilane-essoh',
+            '$ cat focus.txt',
+            '[security, networking, linux, cloud, infra]',
+            '$ sudo nmap --target cyber',
+            'Scanning.. 0.0.0.0/24',
+            '[+] ' + t('Infrastructure & sécurité réseau'),
+            '$ ls /projects',
+            'bastion-ssh | wireguard | packet-tracer | linux-hardening'
+        ];
+
+        let lineIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        const typeLoop = () => {
+            const currentLine = lines[lineIndex] || '';
+            const content = terminalBody.innerHTML.replace(/<br>/g, '\n');
+            if (!isDeleting) {
+                charIndex++;
+                if (charIndex >= currentLine.length + 1) {
+                    isDeleting = true;
+                    setTimeout(typeLoop, 700);
+                    return;
+                }
+            } else {
+                charIndex--;
+                if (charIndex <= 0) {
+                    isDeleting = false;
+                    lineIndex = (lineIndex + 1) % lines.length;
+                }
+            }
+
+            const visible = currentLine.slice(0, charIndex);
+            terminalBody.innerHTML = visible
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\n/g, '<br>');
+
+            const delay = isDeleting ? 25 : 60;
+            setTimeout(typeLoop, delay);
+        };
+
+        setTimeout(typeLoop, 350);
+    }
 });
 
-// Gestion de la soumission du formulaire de contact (Compatible SPA)
 document.addEventListener('submit', async function(e) {
-    // On vérifie si c'est bien notre formulaire de contact qui est soumis
     if (e.target && e.target.id === 'cyber-contact-form') {
-        e.preventDefault(); // Empêche le rechargement de la page
+        e.preventDefault();
 
         const form = e.target;
         const status = form.querySelector('#contact-status');
@@ -20,7 +70,7 @@ document.addEventListener('submit', async function(e) {
 
         if (!endpoint || endpoint.includes('REPLACE_WITH_YOUR_FORM_ID')) {
             if (status) {
-                status.textContent = 'Configurez d abord votre endpoint Formspree dans le formulaire contact.';
+                status.textContent = t('Configurez d abord votre endpoint Formspree dans le formulaire contact.');
                 status.classList.remove('success');
                 status.classList.add('error');
             }
@@ -29,7 +79,7 @@ document.addEventListener('submit', async function(e) {
 
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.textContent = window.siteI18n?.t('Envoi en cours...') || 'Envoi en cours...';
         }
 
         if (status) {
@@ -53,20 +103,20 @@ document.addEventListener('submit', async function(e) {
 
             form.reset();
             if (status) {
-                status.textContent = 'Message envoye avec succes. Merci, je vous repondrai rapidement.';
+                status.textContent = window.siteI18n?.t('Message envoye avec succes. Merci, je vous repondrai rapidement.') || 'Message envoye avec succes. Merci, je vous repondrai rapidement.';
                 status.classList.remove('error');
                 status.classList.add('success');
             }
         } catch (error) {
             if (status) {
-                status.textContent = 'Erreur lors de l envoi. Merci de reessayer ou de me contacter par email.';
+                status.textContent = window.siteI18n?.t('Erreur lors de l envoi. Merci de reessayer ou de me contacter par email.') || 'Erreur lors de l envoi. Merci de reessayer ou de me contacter par email.';
                 status.classList.remove('success');
                 status.classList.add('error');
             }
         } finally {
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer';
+                submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${window.siteI18n?.t('Envoyer') || 'Envoyer'}`;
             }
         }
     }
