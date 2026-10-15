@@ -9,6 +9,37 @@
             </p>
         </div>
 
+        <section class="live-watch" aria-labelledby="live-watch-title">
+            <div class="live-watch-heading">
+                <div>
+                    <p class="eyebrow">Flux actualisé automatiquement</p>
+                    <h2 id="live-watch-title">Dernières actualités</h2>
+                </div>
+                <div class="live-watch-controls">
+                    <label for="watch-topic">Type de veille</label>
+                    <select id="watch-topic">
+                        <option value="cybersecurity">Cybersécurité — général</option>
+                        <option value="network security">Réseau</option>
+                        <option value="linux security">Système</option>
+                        <option value="cloud security">Cloud</option>
+                        <option value="incident response cybersecurity">SOC &amp; réponse à incident</option>
+                        <option value="penetration testing">Tests d'intrusion</option>
+                        <option value="ransomware">Threat intelligence</option>
+                    </select>
+                    <button class="live-watch-refresh" id="watch-refresh" type="button">
+                        <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                        Actualiser
+                    </button>
+                </div>
+            </div>
+            <p class="live-watch-status" id="watch-status" role="status" aria-live="polite">Chargement du flux d'actualités…</p>
+            <div class="live-watch-grid" id="watch-results"></div>
+            <p class="live-watch-attribution">
+                Articles indexés par Hacker News via Algolia. Actualisation automatique toutes les 5 minutes.
+                Ce flux complète la veille et ne remplace pas les sources officielles.
+            </p>
+        </section>
+
         <div class="blog-grid">
             <article class="blog-card">
                 <div class="blog-tag">Réseau</div>
@@ -40,7 +71,7 @@
 
             <article class="blog-card">
                 <div class="blog-tag">Cloud</div>
-                <h3>Cloud security posture management</h3>
+                <h3>Gestion de la posture de sécurité du cloud</h3>
                 <p>
                     Les plateformes cloud multiplient les services et les responsabilités partagées. Le vrai enjeu
                     consiste à sécuriser la configuration et l’exposition des ressources dans des environnements évolutifs.
@@ -95,4 +126,172 @@
             </article>
         </div>
     </div>
+
+    <script>
+        (() => {
+            window.blogWatchCleanup?.();
+
+            const topicSelect = document.getElementById('watch-topic');
+            const refreshButton = document.getElementById('watch-refresh');
+            const status = document.getElementById('watch-status');
+            const results = document.getElementById('watch-results');
+            const refreshInterval = 5 * 60 * 1000;
+            const t = value => window.siteI18n?.t(value) || value;
+            let controller;
+            let latestHits = [];
+            let statusKey = 'loading';
+            let updatedAt;
+
+            const updateStatus = () => {
+                const messages = {
+                    loading: 'Recherche des dernières actualités…',
+                    noResults: 'Aucun article disponible pour ce thème pour le moment.',
+                    timeout: 'Le chargement des actualités a expiré. Les sujets de veille ci-dessous restent disponibles.',
+                    unavailable: 'Flux temporairement indisponible. Les sujets de veille ci-dessous restent disponibles.'
+                };
+                status.textContent = statusKey === 'updated'
+                    ? `${t('Flux mis à jour à')} ${formatDate(updatedAt)}.`
+                    : t(messages[statusKey]);
+            };
+
+            const formatDate = value => {
+                const date = new Date(value);
+                return Number.isNaN(date.getTime())
+                    ? ''
+                    : new Intl.DateTimeFormat(window.siteI18n?.language === 'en' ? 'en-GB' : 'fr-FR', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    }).format(date);
+            };
+
+            const renderArticles = hits => {
+                latestHits = hits;
+                results.replaceChildren();
+                const articles = hits
+                    .filter(hit => typeof hit.title === 'string' && hit.title.trim())
+                    .slice(0, 6);
+
+                articles.forEach(hit => {
+                    const card = document.createElement('article');
+                    card.className = 'live-watch-card';
+
+                    const date = document.createElement('p');
+                    date.className = 'live-watch-date';
+                    date.textContent = formatDate(hit.created_at);
+
+                    const title = document.createElement('h3');
+                    title.textContent = hit.title;
+
+                    const link = document.createElement('a');
+                    let articleUrl;
+                    try {
+                        const href = hit.url || (hit.objectID
+                            ? `https://news.ycombinator.com/item?id=${encodeURIComponent(hit.objectID)}`
+                            : '');
+                        if (!href) {
+                            return;
+                        }
+                        articleUrl = new URL(href);
+                    } catch {
+                        return;
+                    }
+
+                    if (articleUrl.protocol !== 'https:') {
+                        return;
+                    }
+
+                    link.href = articleUrl.href;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = t('Lire l’article');
+
+                    card.append(date, title, link);
+                    results.append(card);
+                });
+            };
+
+            const loadArticles = async () => {
+                controller?.abort();
+                const requestController = new AbortController();
+                controller = requestController;
+                let timedOut = false;
+                const timeout = window.setTimeout(() => {
+                    timedOut = true;
+                    requestController.abort();
+                }, 10000);
+                const query = topicSelect.value;
+                const endpoint = new URL('https://hn.algolia.com/api/v1/search_by_date');
+                endpoint.searchParams.set('query', query);
+                endpoint.searchParams.set('tags', 'story');
+                endpoint.searchParams.set('hitsPerPage', '6');
+
+                refreshButton.disabled = true;
+                statusKey = 'loading';
+                updateStatus();
+
+                try {
+                    const response = await fetch(endpoint, {
+                        signal: requestController.signal,
+                        cache: 'no-store'
+                    });
+                    if (!response.ok) {
+                        throw new Error(`${t('Réponse API :')} ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    if (!Array.isArray(data.hits)) {
+                        throw new Error(t('Format de réponse API inattendu'));
+                    }
+
+                    renderArticles(data.hits);
+                    statusKey = results.childElementCount ? 'updated' : 'noResults';
+                    updatedAt = new Date();
+                    updateStatus();
+                } catch (error) {
+                    if (error.name === 'AbortError' && timedOut) {
+                        statusKey = 'timeout';
+                        updateStatus();
+                    } else if (error.name !== 'AbortError') {
+                        console.error(t('Impossible de charger le flux de veille :'), error);
+                        statusKey = 'unavailable';
+                        updateStatus();
+                    }
+                } finally {
+                    window.clearTimeout(timeout);
+                    if (controller === requestController) {
+                        refreshButton.disabled = false;
+                    }
+                }
+            };
+
+            topicSelect.addEventListener('change', loadArticles);
+            refreshButton.addEventListener('click', loadArticles);
+            const updateArticleDates = () => {
+                renderArticles(latestHits);
+                updateStatus();
+            };
+            document.addEventListener('site-language-change', updateArticleDates);
+            const interval = window.setInterval(loadArticles, refreshInterval);
+
+            window.blogWatchCleanup = () => {
+                controller?.abort();
+                window.clearInterval(interval);
+                topicSelect.removeEventListener('change', loadArticles);
+                refreshButton.removeEventListener('click', loadArticles);
+                document.removeEventListener('site-language-change', updateArticleDates);
+                window.blogWatchCleanup = null;
+            };
+
+            if (!window.blogWatchNavigationListener) {
+                window.addEventListener('hashchange', () => {
+                    if (window.location.hash !== '#blog') {
+                        window.blogWatchCleanup?.();
+                    }
+                });
+                window.blogWatchNavigationListener = true;
+            }
+
+            loadArticles();
+        })();
+    </script>
 </main>

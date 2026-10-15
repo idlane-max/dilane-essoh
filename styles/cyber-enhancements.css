@@ -7,6 +7,32 @@
  */
 
 /* 1. Shared actions ------------------------------------------------------- */
+.language-switch {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.25rem;
+}
+
+.language-switch button {
+    padding: 0.4rem 0.55rem;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--secondary-text);
+    cursor: pointer;
+    font: 600 0.75rem var(--font-title);
+}
+
+.language-switch button[aria-pressed="true"] {
+    border-color: var(--primary-bright);
+    color: var(--primary-bright);
+}
+
+.language-switch button:focus-visible {
+    outline: 2px solid var(--primary-bright);
+    outline-offset: 3px;
+}
+
 .home-actions {
     display: flex;
     flex-wrap: wrap;
@@ -170,6 +196,117 @@
 .blog-card ul {
     margin: 0.8rem 0 0;
     padding-left: 1.2rem;
+}
+
+.live-watch {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(10, 16, 13, 0.78);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 0 22px rgba(46, 204, 113, 0.1);
+}
+
+.live-watch-heading,
+.live-watch-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.live-watch-heading {
+    flex-wrap: wrap;
+}
+
+.live-watch-heading h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.live-watch-heading .eyebrow {
+    margin-bottom: 0.4rem;
+}
+
+.live-watch-controls {
+    flex-wrap: wrap;
+}
+
+.live-watch-controls label {
+    color: var(--secondary-text);
+}
+
+.live-watch-controls select,
+.live-watch-refresh {
+    min-height: 42px;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid rgba(46, 204, 113, 0.45);
+    border-radius: 8px;
+    background: #0b1510;
+    color: var(--text-color);
+    font: inherit;
+}
+
+.live-watch-refresh {
+    cursor: pointer;
+}
+
+.live-watch-controls select:focus-visible,
+.live-watch-refresh:focus-visible,
+.live-watch-card a:focus-visible {
+    outline: 2px solid var(--primary-bright);
+    outline-offset: 3px;
+}
+
+.live-watch-refresh:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.live-watch-status,
+.live-watch-attribution {
+    color: var(--secondary-text);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.live-watch-status {
+    min-height: 1.5em;
+    margin: 1rem 0;
+}
+
+.live-watch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.live-watch-card {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(46, 204, 113, 0.15);
+    border-radius: 12px;
+}
+
+.live-watch-date {
+    margin-bottom: 0.5rem;
+    color: var(--primary-bright);
+    font-size: 0.75rem;
+}
+
+.live-watch-card h3 {
+    margin-bottom: 0.9rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.live-watch-card a {
+    color: var(--primary-bright);
+}
+
+.live-watch-attribution {
+    margin: 1rem 0 0;
 }
 
 /* 4. Modal accessibility -------------------------------------------------- */

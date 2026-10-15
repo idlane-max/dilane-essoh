@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const terminal = document.querySelector('.terminal-body');
     if (!terminal || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = value => window.siteI18n?.t(value) || value;
 
     const lines = [
         '$ whoami',
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '[security, networking, linux, cloud, infra]',
         '$ sudo nmap --target cyber',
         'Scanning.. 0.0.0.0/24',
-        '[+] Infrastructure & sécurité réseau',
+        '[+] ' + t('Infrastructure & sécurité réseau'),
         '$ ls /projects',
         'bastion-ssh | wireguard | packet-tracer | linux-hardening'
     ];

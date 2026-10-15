@@ -6,18 +6,19 @@ if (!window.portefeuilleModalsInitialized) {
     let activeModal = null;
     let lastFocusedElement = null;
     let previousBodyOverflow = '';
+    const t = value => window.siteI18n?.t(value) || value;
 
     function addProjectOverview(modal, projectCard) {
         if (!projectCard || modal.querySelector('.modal-overview')) return;
 
         const overview = document.createElement('section');
         overview.className = 'modal-overview';
-        overview.setAttribute('aria-label', 'Présentation du projet');
+        overview.setAttribute('aria-label', t('Présentation du projet'));
 
         const summary = document.createElement('div');
         summary.className = 'modal-overview-section modal-summary';
         const summaryTitle = document.createElement('h3');
-        summaryTitle.textContent = 'Présentation';
+        summaryTitle.textContent = t('Présentation');
         const summaryText = document.createElement('p');
         summaryText.textContent = projectCard.querySelector('.project-description')?.textContent.trim() || '';
         summary.append(summaryTitle, summaryText);
@@ -32,7 +33,7 @@ if (!window.portefeuilleModalsInitialized) {
             const technologySection = document.createElement('div');
             technologySection.className = 'modal-overview-section modal-technologies';
             const technologyTitle = document.createElement('h3');
-            technologyTitle.textContent = 'Technologies';
+            technologyTitle.textContent = t('Technologies');
             const technologyList = document.createElement('ul');
             technologyList.className = 'technology-tags';
 
@@ -51,7 +52,7 @@ if (!window.portefeuilleModalsInitialized) {
             const linksSection = document.createElement('div');
             linksSection.className = 'modal-overview-section modal-project-links';
             const linksTitle = document.createElement('h3');
-            linksTitle.textContent = 'Liens du projet';
+            linksTitle.textContent = t('Liens du projet');
             const linksList = document.createElement('div');
             linksList.className = 'project-links-container';
 

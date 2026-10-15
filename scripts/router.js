@@ -58,13 +58,15 @@ const router = {
             }, 25);
 
             this.executeScripts(contentContainer);
+            window.siteI18n?.apply(document.head);
+            window.siteI18n?.apply(contentContainer);
 
             if (hash === '#contact') {
                 this.secureContactForm();
             }
         } catch (error) {
             console.error('Erreur lors du chargement de la page:', error);
-            contentContainer.innerHTML = '<p>Erreur lors du chargement de la page</p>';
+            contentContainer.innerHTML = `<p>${window.siteI18n?.t('Erreur lors du chargement de la page') || 'Erreur lors du chargement de la page'}</p>`;
         }
     },
 
@@ -102,7 +104,7 @@ const router = {
             inputs.forEach(input => {
                 if (/[<>]/.test(input.value) || /javascript:/i.test(input.value)) {
                     e.preventDefault();
-                    alert('Pour des raisons de sécurité, le code et les balises HTML ne sont pas autorisés.');
+                    alert(window.siteI18n?.t('Pour des raisons de sécurité, le code et les balises HTML ne sont pas autorisés.') || 'Pour des raisons de sécurité, le code et les balises HTML ne sont pas autorisés.');
                 }
             });
         });
